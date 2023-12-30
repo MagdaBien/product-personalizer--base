@@ -9,7 +9,7 @@ const OptionSize = (props) => {
         e.preventDefault();
         const chosenSize = e.target.name; 
         props.setCurrentSize(chosenSize);
-        props.setCurrentPrice(props.getPrice(props.basePrice, chosenSize));
+        props.setCurrentPrice(props.getPrice(chosenSize));
       }    
 
     return (

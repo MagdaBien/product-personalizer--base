@@ -3,16 +3,18 @@ import ProductImage from '../ProductImage/ProductImage';
 import ProductForm from '../ProductForm/ProductForm';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import { useMemo } from 'react';
 
 const Product = props => {
   const [currentColor, setCurrentColor] = useState(props.colors[0]);
   const [currentSize, setCurrentSize] = useState(props.sizes[0].name);
-  const startPrice = getPrice(props.basePrice, props.sizes[0].name);
-  const [currentPrice, setCurrentPrice] = useState(startPrice);
+  const price = useMemo(()=>getPrice(currentSize), [currentSize]);
+  const [currentPrice, setCurrentPrice] = useState(price);
 
-  function getPrice(price, size) {
+  function getPrice(size) {
     const addition = props.sizes.find((el) => el.name === size);
-    const totalPrice = price + addition.additionalPrice;
+    const totalPrice = props.basePrice + addition.additionalPrice;
+    console.log("getPrice: ", props.title, props.basePrice, addition.additionalPrice, size, totalPrice);
     return totalPrice;
   }
 
