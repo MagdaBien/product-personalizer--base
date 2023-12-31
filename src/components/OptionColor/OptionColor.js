@@ -3,24 +3,24 @@ import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import Button from '../Button/Button';
 
-const OptionColorColor = (props) => { 
+const OptionColorColor = ({setCurrentColor, currentColor, colors}) => { 
 
-    const prepareColorClassName = color => {
+    const prepareColorClassName = (color) => {
         return styles['color' + color[0].toUpperCase() + color.substr(1).toLowerCase()];
       }  
       
       const changeColor = e => {
         e.preventDefault();
-        props.setCurrentColor(e.target.name)
+        setCurrentColor(e.target.name)
       }      
 
     return (
     <div className={styles.colors}>
         <h3 className={styles.optionLabel}>Colors</h3>
         <ul className={styles.choices}>
-        { props.colors.map(item => <li key={item}>
+        { colors.map(item => <li key={item}>
             <Button action={changeColor} buttonName={item} 
-              className={clsx(prepareColorClassName(item), item === props.currentColor && styles.active)}>
+              className={clsx(prepareColorClassName(item), item === currentColor && styles.active)}>
             </Button>                  
           </li>)} 
         </ul>
